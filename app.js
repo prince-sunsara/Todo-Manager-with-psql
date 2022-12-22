@@ -5,8 +5,11 @@ const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-app.get("/", function (request, response) {
-  response.send("Hello world!!");
+// set EJS as view engine
+app.set("view engine", "ejs");
+
+app.get("/", (request, response) => {
+  response.render("index");
 });
 
 app.get("/todos", async function (_request, response) {
