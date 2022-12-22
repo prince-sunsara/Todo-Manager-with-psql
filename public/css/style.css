@@ -1,5 +1,12 @@
 body {
-    background-color: gray;
+    color: aliceblue;
+    background-color: black;
     font-family: 'Courier New', Courier, monospace;
-    text-align: center;
+}
+table {
+    text-align: justify;
+    padding: 2px;
+}
+th,td {
+    padding: 8px;
 }
