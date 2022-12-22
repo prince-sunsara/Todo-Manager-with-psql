@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EJS(embedded javascript templates)</title>
+    <title> My Todo Application using EJS</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1 style="text-align: center;text-shadow: 2px 2px rgba(0,0,0,0.4);">Todo home page</h1>
+    <%- include('header.ejs') %>
+    <table>
+        <% for(var i = 0; i < allTodos.length; i++) { %>
+        <tr>
+            <td>
+                <%= allTodos[i].title %>
+            </td>
+        </tr>
+        <% } %>
+    </table>
 </body>
 </html>
