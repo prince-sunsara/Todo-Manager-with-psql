@@ -16,7 +16,7 @@
   "production": {
     "username": "postgres",
     "password": "prince977..",
-    "database": "l6-milestone-test",
+    "database": "wd-l7-database",
     "use_env_variable": "DATABASE_URL",
     "dialect": "postgres"
   }
