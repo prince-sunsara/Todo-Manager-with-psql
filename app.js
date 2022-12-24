@@ -5,25 +5,35 @@ const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 const path = require("path");
+app.use(express.urlencoded({ extended: false }));
 
 // set EJS as view engine
 app.set("view engine", "ejs");
 
-app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodos();
-  if (request.accepts("html")) {
-    response.render("index", {
-      allTodos,
-    });
-  } else {
-    response.json({
-      allTodos,
-    });
-  }
-});
-
 // for all js, css joining
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", async (request, response) => {
+  // const allTodos = await Todo.getTodos();
+  // if (request.accepts("html")) {
+  //   response.render("index", {
+  //     allTodos,
+  //   });
+  // } else {
+  //   response.json({
+  //     allTodos,
+  //   });
+  // }
+  const overdue = await Todo.overDue();
+  const dueToday = await Todo.dueToday();
+  const dueLater = await Todo.dueLater();
+  response.render("index", {
+    title: "Todo application",
+    overdue,
+    dueToday,
+    dueLater,
+  });
+});
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
@@ -53,9 +63,13 @@ app.get("/todos/:id", async function (request, response) {
 });
 
 app.post("/todos", async function (request, response) {
+  console.log("Creating a todo", request.body);
   try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
+    const todo = await Todo.addTodo({
+      title: request.body.title,
+      dueDate: request.body.dueDate,
+    });
+    return response.redirect("/");
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
