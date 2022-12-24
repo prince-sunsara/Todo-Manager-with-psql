@@ -12,15 +12,55 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+      return this.create({ 
+        title: title, 
+        dueDate: dueDate, 
+        completed: false 
+      });
     }
 
-    static getTodos() {
-      return this.findAll();
-    }
+    // static getTodos() {
+    //   return this.findAll();
+    // }
 
     markAsCompleted() {
       return this.update({ completed: true });
+    }
+
+    static overDue() {
+      return this.findAll({
+        where: {
+          dueDate: {
+            [op.lt]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: false
+        },
+        order: [["id", "ASC"]],
+      });
+    }
+
+    static dueToday() {
+      return this.findAll({
+        where: {
+          dueDate: {
+            [op.eq]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: false
+        },
+        order: [["id", "ASC"]],
+      });
+    }
+
+    static dueLater() {
+      return this.findAll({
+        where: {
+          dueDate: {
+            [op.gt]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: false
+        },
+        order: [["id", "ASC"]],
+      });
     }
   }
   Todo.init(
