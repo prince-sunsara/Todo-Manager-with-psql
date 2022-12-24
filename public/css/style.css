@@ -4,51 +4,6 @@
     box-sizing: border-box;
 }
 body {
-    color: aliceblue;
-    background-color: black;
     font-family: 'Courier New', Courier, monospace;
-}
-div#main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    align-items: center;
-    position: absolute;
-    height: 100%;
-}
-div#top {
-    height: 25%;
-    position: relative;
-    justify-content: center;
-    display: flex;
-    width: 100%;
-    background-color: orange;
-    align-items: center;
-}
-div#middle {
-    height: 50%;
     background-color: white;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    color: black;
-}
-div#bottom {
-    height: 25%;
-    background-color: green;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    align-items: center;
-}
-
-table {
-    text-align: justify;
-    padding: 2px;
-}
-th,td {
-    padding: 8px;
 }
