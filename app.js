@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
-app.use(bodyParser.json()); 
-const path = require("path"); 
+app.use(bodyParser.json());
+const path = require("path");
 
 // set EJS as view engine
 app.set("view engine", "ejs");
@@ -12,18 +12,18 @@ app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
   const allTodos = await Todo.getTodos();
   if (request.accepts("html")) {
-    response.render('index', {
-      allTodos
+    response.render("index", {
+      allTodos,
     });
   } else {
     response.json({
-      allTodos
+      allTodos,
     });
   }
 });
 
 // for all js, css joining
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");

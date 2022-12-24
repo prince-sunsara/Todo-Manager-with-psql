@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static addTodo({ title, dueDate }) {
-      return this.create({ 
-        title: title, 
-        dueDate: dueDate, 
-        completed: false 
+      return this.create({
+        title: title,
+        dueDate: dueDate,
+        completed: false,
       });
     }
 
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.lt]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.eq]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.gt]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
