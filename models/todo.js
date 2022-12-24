@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    // static getTodos() {
-    //   return this.findAll();
-    // }
+    static getTodos() {
+      return this.findAll();
+    }
 
     markAsCompleted() {
       return this.update({ completed: true });
@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.lt]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -45,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.eq]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -57,7 +55,6 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [op.gt]: new Date().toLocaleDateString("en-CA"),
           },
-          completed: false,
         },
         order: [["id", "ASC"]],
       });
