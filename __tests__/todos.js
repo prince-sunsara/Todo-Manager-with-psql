@@ -42,6 +42,7 @@ describe("Todo Application", function () {
   //     completed: false,
   //   });
   //   const parsedResponse = JSON.parse(response.text);
+  //   // const parsedResponse = JSON.parse(JSON.stringify(response.text));
   //   const todosID = parsedResponse.id;
 
   //   expect(parsedResponse.completed).toBe(false);
@@ -49,8 +50,8 @@ describe("Todo Application", function () {
   //   const markAsCompletedResponse = await agent
   //     .put(`/todos/${todosID}/markAsCompleted`)
   //     .send();
-  //   const parsedUpdateResponse = JSON.parse(markAsCompletedResponse.text);
-  //   expect(parsedUpdateResponse.completed).toBe(true);
+  //   const parsedUpdatedResponse = JSON.parse(markAsCompletedResponse.text);
+  //   expect(parsedUpdatedResponse.completed).toBe(true);
   // });
 
   test("Fetches all todos in the database using /todos endpoint", async () => {
@@ -59,16 +60,16 @@ describe("Todo Application", function () {
       dueDate: new Date().toISOString(),
       completed: false,
     });
-    await agent.post("/todos").send({
+    const response = await agent.post("/todos").send({
       title: "Buy ps3",
-      dueDAte: new Date().toISOString(),
+      dueDate: new Date().toISOString(),
       completed: false,
     });
-    const response = await agent.get("/todos");
-    const parsedResponse = JSON.parse(response.text);
+    // const response = await agent.get("/todos");
+    const parsedResponse = JSON.parse(JSON.stringify(response.text));
 
-    expect(parsedResponse.length).toBe(3);
-    expect(parsedResponse[2]["title"]).toBe("Buy ps3");
+    expect(parsedResponse.length).toBe(4);
+    expect(parsedResponse[3]["title"]).toBe("Buy ps3");
   });
 
   test("Deletes a todo with the given ID if it exits and sends a boolean response", async () => {});
