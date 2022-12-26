@@ -26,14 +26,14 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1672040764257,
+  "startTime": 1672042298552,
   "success": true,
   "testResults": [
     {
       "assertionResults": [
         {
           "ancestorTitles": ["Todo Application"],
-          "duration": 131,
+          "duration": 130,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Todo Application Creating a new Todo",
@@ -46,7 +46,7 @@
         },
         {
           "ancestorTitles": ["Todo Application"],
-          "duration": 164,
+          "duration": 151,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Todo Application Marks a todo as complete",
@@ -71,10 +71,10 @@
           "title": "Deletes a todo with the given ID if it exits and sends a boolean response"
         }
       ],
-      "endTime": 1672040765396,
+      "endTime": 1672042299618,
       "message": "",
       "name": "/home/prince/l8-UI/__tests__/todos.js",
-      "startTime": 1672040764285,
+      "startTime": 1672042298584,
       "status": "passed",
       "summary": ""
     }
