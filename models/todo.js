@@ -23,8 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll();
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
+    // markAsCompleted() {
+    //   return this.update({ completed: true });
+    // }
+    setCompletionStatus(boolean) {
+      return this.update({ completed: boolean });
     }
 
     static overDue() {
@@ -65,6 +68,15 @@ module.exports = (sequelize, DataTypes) => {
         where: {
           id,
         },
+      });
+    }
+
+    static completedItems() {
+      return this.findAll({
+        where: {
+          completed: true,
+        },
+        order: [["id", "ASC"]],
       });
     }
   }
