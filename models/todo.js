@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.lt]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -47,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.eq]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -58,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.gt]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
