@@ -15,6 +15,11 @@ const user = require("./models/user");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+// FOR CONNECT-FLASH
+const flash = require("connect-flash");
+app.set("views", path.join(__dirname, "views"));
+app.use(flash());
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("shh! some secret string"));
@@ -48,15 +53,24 @@ passport.use(
         },
       })
         .then(async (user) => {
-          const result = await bcrypt.compare(password, user.password);
-          if (result) {
-            return done(null, user);
+          // console.log(user.email);
+          if (user) {
+            const bool = await bcrypt.compare(password, user.password);
+            if (bool) {
+              return done(null, user);
+            } else {
+              return done(null, false, {
+                message: "Invalid password",
+              });
+            }
           } else {
-            return done("Invalid Password!");
+            return done(null, false, {
+              message: "With This email user doesn't exists",
+            });
           }
         })
         .catch((error) => {
-          console.log(error);
+          return done(error);
         });
     }
   )
@@ -85,10 +99,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ENDPOINTS FOR TODOS
 app.get("/", async (request, response) => {
-  response.render("index", {
-    title: "Todo application",
-    csrfToken: request.csrfToken(),
-  });
+  if (request.session.passport) {
+    response.redirect("/todos");
+  } else {
+    response.render("index", {
+      title: "Todo application",
+      csrfToken: request.csrfToken(),
+    });
+  }
 });
 
 app.get(
@@ -123,19 +141,36 @@ app.get(
 app.post(
   "/todos",
   connectEnsureLogin.ensureLoggedIn(),
-  async function (request, response) {
+  async (request, response) => {
     console.log("Creating a todo", request.body);
     console.log(request.user);
     try {
       await Todo.addTodo({
         title: request.body.title,
         dueDate: request.body.dueDate,
+        completed: false,
         userId: request.user.id,
       });
       return response.redirect("/todos");
     } catch (error) {
       console.log(error);
-      return response.status(422).json(error);
+      console.log(error.name);
+      if (error.name == "SequelizeValidationError") {
+        error.errors.forEach((e) => {
+          if (e.message == "Title length must be greater than 5") {
+            request.flash(
+              "error",
+              "Title length must be greater than or equal to 5"
+            );
+          }
+          if (e.message == "Please enter a valid date") {
+            request.flash("error", "Please enter valid date");
+          }
+        });
+        return response.redirect("/todos");
+      } else {
+        return response.status(422).json(error);
+      }
     }
   }
 );
@@ -180,6 +215,39 @@ app.get("/signup", (request, response) => {
   });
 });
 
+app.get("/login", (request, response) => {
+  response.render("login", {
+    title: "Login",
+    csrfToken: request.csrfToken(),
+  });
+});
+
+app.get("/signout", (request, response, next) => {
+  // SINGOUT
+  request.logOut((err) => {
+    if (err) return next(err);
+    response.redirect("/");
+  });
+});
+
+app.post(
+  "/session",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  (request, response) => {
+    console.log(request.user);
+    response.redirect("/todos");
+  }
+);
+
+app.use((request, response, next) => {
+  const data = request.flash();
+  response.locals.messages = data;
+  next();
+});
+
 app.post("/users", async (request, response) => {
   // HAS PASSWORD USING BCRYPT
   const hasedPwd = await bcrypt.hash(request.body.password, saltRounds);
@@ -200,30 +268,28 @@ app.post("/users", async (request, response) => {
     });
   } catch (error) {
     console.log(error);
-  }
-});
-
-app.get("/login", (request, response) => {
-  response.render("login", { title: "Login", csrfToken: request.csrfToken() });
-});
-
-app.post(
-  "/session",
-  passport.authenticate("local", { failureRedirect: "/login" }),
-  (request, response) => {
-    console.log(request.user);
-    response.redirect("/todos");
-  }
-);
-
-app.get("/signout", (request, response, next) => {
-  // SINGOUT
-  request.logOut((err) => {
-    if (err) {
-      return next(err);
+    console.log(error.name);
+    if (error.name == "SequelizeValidationError") {
+      error.errors.forEach((e) => {
+        if (e.message == "Please provide a firstName") {
+          request.flash("error", "Please provide a firstName");
+        }
+        if (e.message == "Please provide email_id") {
+          request.flash("error", "Please provide email_id");
+        }
+      });
+      return response.redirect("/signup");
+    } else if (error.name == "sequelizeUniqueConstraintError") {
+      error.errors.forEach((e) => {
+        if (e.message == "email must be unique") {
+          request.flash("error", "User with this email already exists");
+        }
+      });
+      return response.redirect("/singup");
+    } else {
+      return response.status(422).json(error);
     }
-    response.redirect("/");
-  });
+  }
 });
 
 module.exports = app;
