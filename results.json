@@ -1,0 +1,109 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 1,
+  "numPassedTests": 5,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 5,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1672808940025,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["Todo Application"],
+          "duration": 150,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Todo Application Sign up",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Sign up"
+        },
+        {
+          "ancestorTitles": ["Todo Application"],
+          "duration": 122,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Todo Application Sign out",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Sign out"
+        },
+        {
+          "ancestorTitles": ["Todo Application"],
+          "duration": 175,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Todo Application Creating a new Todo",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Creating a new Todo"
+        },
+        {
+          "ancestorTitles": ["Todo Application"],
+          "duration": 269,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Todo Application Marks a todo as complete",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Marks a todo as complete"
+        },
+        {
+          "ancestorTitles": ["Todo Application"],
+          "duration": 261,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Todo Application Deletes a todo with the given ID if it exits and sends a boolean response",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Deletes a todo with the given ID if it exits and sends a boolean response"
+        }
+      ],
+      "endTime": 1672808941960,
+      "message": "",
+      "name": "/home/prince/l8-UI/__tests__/todos.js",
+      "startTime": 1672808940054,
+      "status": "passed",
+      "summary": ""
+    }
+  ],
+  "wasInterrupted": false
+}
