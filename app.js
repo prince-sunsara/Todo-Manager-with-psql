@@ -97,6 +97,13 @@ app.set("view engine", "ejs");
 // FOR ALL JS, CSS JOINING
 app.use(express.static(path.join(__dirname, "public")));
 
+// FLASH-CONNECT 
+app.use((request, response, next) => {
+  const data = request.flash();
+  response.locals.messages = data;
+  next();
+});
+
 // ENDPOINTS FOR TODOS
 app.get("/", async (request, response) => {
   if (request.session.passport) {
@@ -125,6 +132,7 @@ app.get(
         dueToday,
         dueLater,
         completedItems,
+        user: request.user.firstName,
         csrfToken: request.csrfToken(),
       });
     } else {
@@ -241,12 +249,6 @@ app.post(
     response.redirect("/todos");
   }
 );
-
-app.use((request, response, next) => {
-  const data = request.flash();
-  response.locals.messages = data;
-  next();
-});
 
 app.post("/users", async (request, response) => {
   // HAS PASSWORD USING BCRYPT
