@@ -52,9 +52,9 @@
         <%- include('header.ejs') %>
         <div class="flex mb-1">
           <p class="mb-1 mt-1 text-xl text-blue-900">Welcome <%= user %> !!</p>
-          <!-- <p class="mb-2 mt-1 ml-2 font-medium bg-green-600 rounded p-1 hover:bg-green-900">
+          <p class="mb-2 mt-1 ml-2 font-medium bg-green-600 rounded p-1 hover:bg-green-900">
             <a href="/signout" class="text-white">logout</a>
-          </p> -->
+          </p>
         </div>
 
         <% if(messages && messages.error && messages.error.length > 0) { %>
@@ -98,11 +98,11 @@
           include('todos.ejs', { title: "Due Later", data: dueLater }) %> <%-
           include('todos.ejs', { title: "Completed", data: completedItems }) %>
         </div>
-        <div class="flex mt-2 mb-1">
+        <!-- <div class="flex mt-2 mb-1">
           <p class="cursor-pointer mb-2 mt-1 text-sm bg-green-600 rounded px-3 py-1 hover:bg-green-900">
             <a href="/signout" class="text-white">Logout</a>
           </p>
-        </div>
+        </div> -->
       </div>
     </div>
   </body>
