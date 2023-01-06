@@ -55,8 +55,8 @@ passport.use(
         .then(async (user) => {
           // console.log(user.email);
           if (user) {
-            const bool = await bcrypt.compare(password, user.password);
-            if (bool) {
+            const result = await bcrypt.compare(password, user.password);
+            if (result) {
               return done(null, user);
             } else {
               return done(null, false, {
