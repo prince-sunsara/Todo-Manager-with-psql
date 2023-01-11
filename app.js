@@ -262,7 +262,7 @@ app.post("/users", async (request, response) => {
       email: request.body.email,
       password: hasedPwd,
     });
-    request.login(user, (err) => {
+    request.logIn(user, (err) => {
       if (err) {
         console.log(err);
       }
@@ -281,7 +281,7 @@ app.post("/users", async (request, response) => {
         }
       });
       return response.redirect("/signup");
-    } else if (error.name == "sequelizeUniqueConstraintError") {
+    } else if (error.name == "SequelizeUniqueConstraintError") {
       error.errors.forEach((e) => {
         if (e.message == "email must be unique") {
           request.flash("error", "User with this email already exists");
